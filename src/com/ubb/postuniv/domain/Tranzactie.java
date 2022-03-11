@@ -1,9 +1,8 @@
 package com.ubb.postuniv.domain;
 
-public class Tranzactie {
+public class Tranzactie extends Entity {
     // id, id prăjitură (trebuie să existe), nr. card client (întreg), data, ora, numărul de bucăți
 
-    private String id;
     private String idPrajitura;
     private int cardClient;
     private String data;
@@ -11,16 +10,12 @@ public class Tranzactie {
     private int numarBucati;
 
     public Tranzactie(String id, String idPrajitura, int cardClient, String data, String ora, int numarBucati) {
-        this.id = id;
+        super(id);
         this.idPrajitura = idPrajitura;
         this.cardClient = cardClient;
         this.data = data;
         this.ora = ora;
         this.numarBucati = numarBucati;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getIdPrajitura() {

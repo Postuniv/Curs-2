@@ -4,19 +4,19 @@ import com.ubb.postuniv.domain.Prajitura;
 import com.ubb.postuniv.domain.PrajituraCuNrTranzactii;
 import com.ubb.postuniv.domain.Tranzactie;
 import com.ubb.postuniv.domain.TranzactieValidator;
-import com.ubb.postuniv.repository.PrajituraRepository;
-import com.ubb.postuniv.repository.TranzactieRepository;
+import com.ubb.postuniv.repository.IRepository;
+
 
 import java.util.*;
 
 public class TranzactieService {
 
-    private TranzactieRepository tranzactieRepository;
-    private PrajituraRepository prajituraRepository;
+    private IRepository<Tranzactie> tranzactieRepository;
+    private IRepository<Prajitura> prajituraRepository;
     private TranzactieValidator tranzactieValidator;
 
-    public TranzactieService(TranzactieRepository tranzactieRepository,
-                             PrajituraRepository prajituraRepository,
+    public TranzactieService(IRepository<Tranzactie> tranzactieRepository,
+                             IRepository<Prajitura> prajituraRepository,
                              TranzactieValidator tranzactieValidator) {
         this.tranzactieRepository = tranzactieRepository;
         this.prajituraRepository = prajituraRepository;
@@ -50,12 +50,16 @@ public class TranzactieService {
             ));
         }
 
-        result.sort(new Comparator<PrajituraCuNrTranzactii>() {
-            @Override
-            public int compare(PrajituraCuNrTranzactii o1, PrajituraCuNrTranzactii o2) {
-                return -Integer.compare(o1.nrTranzactii, o2.nrTranzactii);
-            }
-        });
+        /*
+            result.sort(new Comparator<PrajituraCuNrTranzactii>() {
+                @Override
+                public int compare(PrajituraCuNrTranzactii o1, PrajituraCuNrTranzactii o2) {
+                    return -Integer.compare(o1.nrTranzactii, o2.nrTranzactii);
+                }
+            });
+         */
+
+        result.sort((o1, o2) -> -Integer.compare(o1.nrTranzactii, o2.nrTranzactii));
 
         return result;
     }

@@ -1,16 +1,18 @@
 package com.ubb.postuniv;
 
 import com.ubb.postuniv.domain.Prajitura;
+import com.ubb.postuniv.domain.Tranzactie;
 import com.ubb.postuniv.domain.TranzactieValidator;
-import com.ubb.postuniv.repository.PrajituraRepository;
-import com.ubb.postuniv.repository.TranzactieRepository;
+import com.ubb.postuniv.repository.IRepository;
+import com.ubb.postuniv.repository.InMemoryRepository;
 import com.ubb.postuniv.service.TranzactieService;
+import com.ubb.postuniv.userInterface.Console;
 
 public class Main {
 
     public static void main(String[] args) {
-        PrajituraRepository prajituraRepository = new PrajituraRepository();
-        TranzactieRepository tranzactieRepository = new TranzactieRepository();
+        IRepository<Prajitura> prajituraRepository = new InMemoryRepository<>();
+        IRepository<Tranzactie> tranzactieRepository = new InMemoryRepository<>();
         TranzactieValidator tranzactieValidator = new TranzactieValidator();
 
         TranzactieService tranzactieService = new TranzactieService(
@@ -31,6 +33,7 @@ public class Main {
         tranzactieService.addTranzactie("7", "2", 342352, "fgds dfg", "21132", 3);
         tranzactieService.addTranzactie("8", "3", 343462, "gdf dfgfgds", "32 2", 9);
 
-
+        Console console = new Console(tranzactieService);
+        console.runConsole();
     }
 }

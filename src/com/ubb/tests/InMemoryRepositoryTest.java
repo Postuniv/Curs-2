@@ -1,15 +1,16 @@
 package com.ubb.tests;
 
 import com.ubb.postuniv.domain.Prajitura;
-import com.ubb.postuniv.repository.PrajituraRepository;
+import com.ubb.postuniv.repository.IRepository;
+import com.ubb.postuniv.repository.InMemoryRepository;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class PrajituraRepositoryTest {
+class InMemoryRepositoryTest {
 
-    PrajituraRepository getTestRepository() {
-        PrajituraRepository repository = new PrajituraRepository();
+    IRepository<Prajitura> getTestRepository() {
+        IRepository<Prajitura> repository = new InMemoryRepository<>();
         repository.create(new Prajitura("1", "ecler", "zahar, frisca", 200, 20, false));
         repository.create(new Prajitura("2", "gdfisoa", "fms nm,sf", 500, 30, false));
         repository.create(new Prajitura("6", "fsm,n,m", "fekdhjsafbnmsd", 300, 27, true));
@@ -19,7 +20,7 @@ class PrajituraRepositoryTest {
 
     @Test
     void create() {
-        PrajituraRepository repository = getTestRepository();
+        IRepository<Prajitura> repository = getTestRepository();
         assertEquals(3, repository.read().size());
         assertNotEquals(null, repository.read("1"));
         assertNotEquals(null, repository.read("2"));

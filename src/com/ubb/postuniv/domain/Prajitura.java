@@ -1,25 +1,21 @@
 package com.ubb.postuniv.domain;
 
-public class Prajitura {
+public class Prajitura extends Entity  {
     // id, nume, ingrediente, calorii, preț, dacă e fără zahăr.
-    private String id;
     private String nume;
     private String ingrediente;
     private float calorii;
     private float pret;
     private boolean faraZahar;
 
-    public Prajitura(String id, String nume, String ingrediente, float calorii, float pret, boolean faraZahar) {
-        this.id = id;
+    public Prajitura(String id, String nume, String ingrediente,
+                     float calorii, float pret, boolean faraZahar) {
+        super(id);
         this.nume = nume;
         this.ingrediente = ingrediente;
         this.calorii = calorii;
         this.pret = pret;
         this.faraZahar = faraZahar;
-    }
-
-    public String getId() {
-        return id;
     }
 
     public String getNume() {
