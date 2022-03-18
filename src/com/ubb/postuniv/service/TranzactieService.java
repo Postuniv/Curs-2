@@ -9,6 +9,7 @@ import com.ubb.postuniv.repository.IRepository;
 
 import java.util.*;
 
+
 public class TranzactieService {
 
     private IRepository<Tranzactie> tranzactieRepository;
@@ -62,6 +63,33 @@ public class TranzactieService {
         result.sort((o1, o2) -> -Integer.compare(o1.nrTranzactii, o2.nrTranzactii));
 
         return result;
+    }
+
+    private String getRandomDate(Random r) {
+        return String.valueOf(r.nextInt(10)) + String.valueOf(r.nextInt(10)) + "." +
+                String.valueOf(r.nextInt(10)) + String.valueOf(r.nextInt(10)) + "." +
+                String.valueOf(r.nextInt(10)) + String.valueOf(r.nextInt(10)) + String.valueOf(r.nextInt(10)) + String.valueOf(r.nextInt(10));
+    }
+
+    public void generateRandom(int number) {
+        Random r = new Random();
+        final int maxStringLength = 10;
+
+        List<Prajitura> prajituri = this.prajituraRepository.read();
+        for (int i = 0; i < number; ++i) {
+            Prajitura prajituraTranzactionata = prajituri.get(r.nextInt(prajituri.size()));
+            Tranzactie tranzactie = new Tranzactie(
+                    UUID.randomUUID().toString(),
+                    prajituraTranzactionata.getId(),
+                    r.nextInt(),
+                    this.getRandomDate(r),
+                    this.getRandomDate(r), // TODO: implement a getRandomTime
+                    r.nextInt(Math.max(10000 / ((int)prajituraTranzactionata.getCalorii() + 1) - 1, 0))
+            );
+
+            this.tranzactieValidator.validate(tranzactie, prajituraRepository);
+            this.tranzactieRepository.create(tranzactie);
+        }
     }
 
     public List<Tranzactie> getAll() {
